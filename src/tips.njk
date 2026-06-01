@@ -1,0 +1,36 @@
+---
+layout: base.njk
+title: Tips & Info
+description: Practical advice and essential information for traveling in Japan.
+permalink: /tips/
+---
+<header class="page-header header-tips">
+  <div class="container">
+    <h1>Tips & Info</h1>
+    <p>Learn about culture, etiquette, transportation, and more.</p>
+  </div>
+</header>
+
+<div class="container">
+  <section class="post-grid">
+    {% for post in collections['Tips & info'] | reverse %}
+    <article class="post-card">
+      <div class="post-card-image">
+        {% if post.data.image %}
+        <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+        {% else %}
+        <div class="placeholder-img"></div>
+        {% endif %}
+      </div>
+      <div class="post-card-content">
+        <div class="post-card-meta">
+          <span class="post-date">{{ post.date | dateReadable }}</span>
+        </div>
+        <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+        <p>{{ post.data.description }}</p>
+        <a href="{{ post.url }}" class="read-more">Read Full Guide &rarr;</a>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+</div>

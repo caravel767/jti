@@ -1,0 +1,84 @@
+---
+layout: base.njk
+title: Welcome to Japan
+description: Your ultimate guide to exploring Japan's hidden gems and popular destinations.
+---
+
+{# Hero Section #}
+<section class="hero-v2">
+  <div class="hero-overlay"></div>
+  <div class="container hero-container">
+    <div class="hero-content">
+      <span class="hero-tagline">Experience the Unseen</span>
+      <h1>Discover the Authentic Beauty of Japan</h1>
+      <p>Expert travel guides, local insights, and practical tips for your next Japanese adventure.</p>
+      <div class="hero-actions">
+        <a href="/guides/" class="btn btn-primary">Start Planning</a>
+        <a href="/destinations/" class="btn btn-outline">Explore Destinations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# Category Shortcuts #}
+<section class="category-shortcuts">
+  <div class="container">
+    <div class="shortcut-grid">
+      <a href="/destinations/" class="shortcut-item">
+        <div class="shortcut-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </div>
+        <h3>Destinations</h3>
+        <p>Where to go</p>
+      </a>
+      <a href="/guides/" class="shortcut-item">
+        <div class="shortcut-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+        <h3>Travel Guides</h3>
+        <p>How to plan</p>
+      </a>
+      <a href="/tips/" class="shortcut-item">
+        <div class="shortcut-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15 2a6 6 0 0 0-9 5.04c0 2.2.86 3.12 1.42 4.14a1 1 0 0 1 .15.48c.11.83.21 1.63.43 2.34H12h3c.22-.71.32-1.51.43-2.34a1 1 0 0 1 .15-.48c.56-1.02 1.42-1.94 1.42-4.14A6 6 0 0 0 15 2z"></path></svg>
+        </div>
+        <h3>Pro Tips</h3>
+        <p>Useful info</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+{# Featured/Latest Articles #}
+<section class="latest-posts">
+  <div class="container">
+    <div class="section-header">
+      <h2>Latest Insights</h2>
+      <p>Stay updated with our newest travel guides and tips.</p>
+    </div>
+    
+    <div class="post-grid">
+      {% for post in collections.posts | reverse %}
+      <article class="post-card">
+        <div class="post-card-image">
+          {% if post.data.image %}
+          <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+          {% else %}
+          <div class="placeholder-img"></div>
+          {% endif %}
+        </div>
+        <div class="post-card-content">
+          <div class="post-card-meta">
+            <span class="post-date">{{ post.date | dateReadable }}</span>
+          </div>
+          <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+          <p>{{ post.data.description }}</p>
+          <a href="{{ post.url }}" class="read-more">Read Full Guide &rarr;</a>
+        </div>
+      </article>
+      {% else %}
+      <p class="empty-msg">Coming soon! We are preparing amazing guides for you.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

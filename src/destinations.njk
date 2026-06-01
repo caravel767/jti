@@ -1,0 +1,217 @@
+---
+layout: base.njk
+title: Destinations
+description: Explore Japan's most beautiful regions and cities.
+permalink: /destinations/
+---
+<header class="page-header header-destinations">
+  <div class="container">
+    <h1>Destinations</h1>
+    <p>From the neon lights of Tokyo to the ancient temples of Kyoto, discover the best of Japan.</p>
+  </div>
+</header>
+
+<div class="container">
+  {# Japan Map Section with Image Base #}
+  <section class="japan-map-section">
+    <div class="map-wrapper">
+      <div class="map-inner">
+        <img src="/img/japan-map2.png" alt="Map of Japan" class="base-map">
+        
+        {# Overlay Pins #}
+        <div class="map-pins">
+          <!-- Tokyo -->
+          <a href="#Tokyo" class="map-pin active" style="top: 68%; left: 66%;" data-city="Tokyo">
+            <span class="pin-dot"></span>
+            <span class="pin-label">Tokyo</span>
+          </a>
+          
+          <!-- Kyoto -->
+          <a href="#Kyoto" class="map-pin active has-leader" style="top: 73%; left: 44%;" data-city="Kyoto">
+            <span class="pin-label" style="position: absolute; top: -45px; left: -25px;">Kyoto</span>
+            <span class="pin-leader" style="height: 25px; top: -30px; left: 5px;"></span>
+            <span class="pin-dot"></span>
+          </a>
+          
+          <!-- Osaka -->
+          <a href="#Osaka" class="map-pin active has-leader" style="top: 75%; left: 41%;" data-city="Osaka">
+            <span class="pin-label" style="position: absolute; top: 30px; left: -15px;">Osaka</span>
+            <span class="pin-leader" style="height: 25px; top: 5px; left: 5px;"></span>
+            <span class="pin-dot"></span>
+          </a>
+
+          <!-- Inactive/Future Cities -->
+          <div class="map-pin inactive has-leader" style="top: 73%; left: 49%;">
+            <span class="pin-label" style="position: absolute; top: -55px; left: 0px;">Nagoya</span>
+            <span class="pin-leader" style="height: 45px; top: -45px; left: 9px; transform: rotate(28deg);"></span>
+            <span class="pin-dot"></span>
+          </div>
+          <div class="map-pin inactive" style="top: 82%; left: 11%;">
+            <span class="pin-dot"></span>
+            <span class="pin-label">Fukuoka</span>
+          </div>
+          <div class="map-pin inactive" style="top: 21%; left: 75%;">
+            <span class="pin-dot"></span>
+            <span class="pin-label">Hokkaido</span>
+          </div>
+          <div class="map-pin inactive" style="top: 59%; left: 11%;">
+            <span class="pin-dot"></span>
+            <span class="pin-label">Okinawa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# Grouped Content #}
+  {% set cities = ["Tokyo", "Kyoto", "Osaka", "Nagoya", "Fukuoka/Kyushu", "Hokkaido", "Sendai", "Hiroshima", "Okinawa"] %}
+  
+  {% for city in cities %}
+    {% set cityPosts = collections[city] %}
+    {% if cityPosts and cityPosts.length > 0 %}
+    <section class="city-section" id="{{ city }}">
+      <h2 class="section-title">{{ city }}</h2>
+      <div class="post-grid">
+        {% for post in cityPosts | reverse %}
+        <article class="post-card">
+          <div class="post-card-image">
+            {% if post.data.image %}
+            <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+            {% else %}
+            <div class="placeholder-img"></div>
+            {% endif %}
+          </div>
+          <div class="post-card-content">
+            <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+            <p>{{ post.data.description }}</p>
+            <a href="{{ post.url }}" class="read-more">Read Full Guide &rarr;</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  {% endfor %}
+
+  <section class="coming-soon-cities">
+    <hr>
+    <h3>More Destinations Coming Soon</h3>
+    <p class="text-muted">We are currently preparing guides for Nagoya, Fukuoka, Hokkaido, and more!</p>
+  </section>
+</div>
+
+<style>
+  .japan-map-section {
+    background: #fff;
+    padding: 40px 0;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+  }
+  .map-wrapper {
+    display: inline-block;
+    max-width: 100%;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+  .map-inner {
+    position: relative;
+    line-height: 0;
+  }
+  .base-map {
+    display: block;
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    opacity: 0.9;
+  }
+  .map-pins {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: normal;
+  }
+  .map-pin {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  /* Leader lines for crowded labels */
+  .pin-leader {
+    position: absolute;
+    background: #666;
+    width: 2px;
+    z-index: -1;
+    transform-origin: bottom center;
+  }
+  
+  .map-pin.has-leader {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .map-pin.has-leader .pin-label {
+    margin: 0;
+  }
+  .map-pin.active:hover {
+    z-index: 20;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .pin-dot {
+    width: 12px;
+    height: 12px;
+    background: #ff5a5f;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255,90,95,0.5);
+  }
+  .map-pin.active .pin-dot {
+    animation: pulse-ring 2s infinite;
+  }
+  .map-pin.inactive .pin-dot {
+    background: #ccc;
+    box-shadow: none;
+  }
+  .pin-label {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .map-pin.inactive .pin-label {
+    color: #999;
+    font-weight: normal;
+    font-size: 11px;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(255,90,95, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255,90,95, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,90,95, 0); }
+  }
+
+  .city-section { margin-bottom: 80px; scroll-margin-top: 100px; }
+  .section-title {
+    font-size: 2.2rem;
+    color: #2d3436;
+    border-bottom: 4px solid #ff5a5f;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+  }
+</style>
