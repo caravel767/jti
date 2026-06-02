@@ -2,6 +2,7 @@ module.exports = function(eleventyConfig) {
   // CSSと画像をパススルーコピー
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/img");
+  eleventyConfig.addPassthroughCopy("src/favicon.svg");
 
   // 日付フォーマットフィルタ
   eleventyConfig.addFilter("dateReadable", (dateObj) => {
