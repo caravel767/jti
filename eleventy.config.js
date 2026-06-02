@@ -19,7 +19,6 @@ module.exports = function(eleventyConfig) {
       input: "src",
       output: "_site",
       includes: "_includes"
-    },
-    pathPrefix: "/jti/"
+    }
   };
 };
